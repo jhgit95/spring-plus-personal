@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.example.expert.domain.todo.entity.QTodo.todo;
 import static org.example.expert.domain.user.entity.QUser.user;
@@ -53,12 +54,8 @@ public class TodoRepositoryQueryImpl implements TodoRepositoryQuery{
         QComment comment = QComment.comment;
         QUser user = QUser.user;
 
-        List<TodoSearchResponse> query = queryFactory
-                .select(Projections.constructor(TodoSearchResponse.class,
-                        todo.title,
-                        manager.countDistinct(),
-                        comment.countDistinct()))
-                .distinct()
+        List<Todo> todos = queryFactory
+                .select(todo)
                 .from(todo)
                 .leftJoin(todo.managers, manager)
                 .leftJoin(todo.comments, comment)
@@ -74,7 +71,14 @@ public class TodoRepositoryQueryImpl implements TodoRepositoryQuery{
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return new PageImpl<>(query, pageable, query.size());
+        List<TodoSearchResponse> dtoList = todos.stream()
+                .map(t -> new TodoSearchResponse(
+                        t.getTitle(),
+                        t.getManagers().size(),
+                        t.getComments().size()))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(dtoList, pageable, dtoList.size());
 
     }
 

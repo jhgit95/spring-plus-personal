@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class TodoSearchResponse {
     private final String title;
-    private final Long managerCount;
-    private final Long commentCount;
+    private final int managerCount;
+    private final int commentCount;
 
-    public TodoSearchResponse(String title, Long managerCount, Long commentCount) {
+    public TodoSearchResponse(String title, int managerCount, int commentCount) {
         this.title = title;
         this.managerCount = managerCount;
         this.commentCount = commentCount;
