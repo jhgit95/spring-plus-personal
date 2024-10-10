@@ -64,7 +64,8 @@ public class TodoRepositoryQueryImpl implements TodoRepositoryQuery{
                 .where(
                         titleContains(title),
                         userNicknameContains(nickname),
-                        todoDateBetween(startDateTime, endDateTime)
+                        startDateTime != null ? todo.createdAt.gt(startDateTime) : null,
+                        endDateTime != null ? todo.createdAt.lt(endDateTime) : null
                 )
                 .groupBy(todo.id)
                 .orderBy(todo.createdAt.desc())
@@ -90,8 +91,5 @@ public class TodoRepositoryQueryImpl implements TodoRepositoryQuery{
         return managerNickname != null ? user.nickname.contains(managerNickname) : null;
     }
 
-    private BooleanExpression todoDateBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        return startDate != null && endDate != null ? todo.createdAt.between(startDate, endDate) : null;
-    }
 
 }

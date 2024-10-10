@@ -90,7 +90,7 @@ public class TodoService {
 
     public Page<TodoSearchResponse> searchTodo(int page, int size, String title, LocalDate startDate, LocalDate endDate, String nickname){
         LocalDateTime startDateTime = (startDate != null) ? startDate.atStartOfDay() : null;
-        LocalDateTime endDateTime = (endDate != null) ? endDate.atTime(23,59) : null;
+        LocalDateTime endDateTime = (endDate != null) ? endDate.atTime(23, 59, 59) : null;
 
         Pageable pageable = PageRequest.of(page - 1, size);
 
