@@ -87,4 +87,14 @@
     - 그 외 로그에 들어가는 내용은 원하는 정보를 자유롭게 넣어주세요.
  
   ![11번 트랜잭션 로그](https://github.com/user-attachments/assets/7697f70f-6b9e-44e2-821f-bb5b881653a5)
+
 <br></br>
+
+----
+
+### 과제 회고 및 트러블 슈팅 !
+https://jhdevtrace.tistory.com/39
+
+<br></br>
+
+----
